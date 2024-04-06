@@ -1,11 +1,36 @@
 // schema.prisma
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+  schemas   = ["ipfs"]
+}
+
+model File {
+  id       String @id @default(uuid())
+  filename String
+  cid      String
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  @@schema("ipfs")
+}
+
+model User {
+  id               String   @id @default(uuid())
+  publicKey        String
+  nonce            String
+  nonceExpiry      DateTime
+  email            String?  @unique
+  username         String   @unique
+  preferredNetwork String?
+  files            File[]
+
+  @@schema("ipfs")
 }
