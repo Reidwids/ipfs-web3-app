@@ -6,7 +6,9 @@ import Header from "./Header";
 import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/config";
-import Web3ModalProvider from "@/context";
+import Web3ModalProvider from "@/providers/Web3ModalProvider";
+import NextAuthProvider from "@/providers/NextAuthProvider";
+import { MetaMaskInpageProvider } from "@metamask/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,12 @@ export const metadata: Metadata = {
   description: "Made by @Reidwids",
 };
 
+declare global {
+  interface Window {
+    ethereum?: MetaMaskInpageProvider;
+  }
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,12 +48,14 @@ export default function RootLayout({
         <title>IPFS Web3 App</title>
       </head>
       <body className={`relative`}>
-        <Web3ModalProvider initialState={initialState}>
-          <Header />
-          <div className="min-w-full flex justify-center min-h-[calc(100vh-81px)] md:min-h-[calc(100vh-88px)]">
-            {children}
-          </div>
-        </Web3ModalProvider>
+        <NextAuthProvider>
+          <Web3ModalProvider initialState={initialState}>
+            <Header />
+            <div className="min-w-full flex justify-center min-h-[calc(100vh-81px)] md:min-h-[calc(100vh-88px)] text-white">
+              {children}
+            </div>
+          </Web3ModalProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

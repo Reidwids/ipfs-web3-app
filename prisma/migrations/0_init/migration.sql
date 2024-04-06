@@ -15,10 +15,10 @@ CREATE TABLE "ipfs"."File" (
 CREATE TABLE "ipfs"."User" (
     "id" TEXT NOT NULL,
     "publicAddress" TEXT NOT NULL,
-    "nonce" TEXT NOT NULL,
-    "nonceExpiry" TIMESTAMP(3) NOT NULL,
+    "nonce" TEXT,
+    "nonceExpiry" TIMESTAMP(3),
     "email" TEXT,
-    "username" TEXT NOT NULL,
+    "username" TEXT,
     "preferredNetwork" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")

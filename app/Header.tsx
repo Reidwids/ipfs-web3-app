@@ -20,6 +20,7 @@ export default function Header() {
       <div className="flex items-center space-x-8 ">
         <Link href="/">Home</Link>
         <Link href="/ipfs">IPFS</Link>
+        <Link href="/account">Account</Link>
         <div className="flex items-center space-x-4 ">
           <AnimatePresence>
             {address ? (
