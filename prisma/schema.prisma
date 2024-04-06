@@ -24,11 +24,11 @@ model File {
 
 model User {
   id               String   @id @default(uuid())
-  publicKey        String
+  publicAddress    String   @unique
   nonce            String
   nonceExpiry      DateTime
   email            String?  @unique
-  username         String   @unique
+  username         String
   preferredNetwork String?
   files            File[]
 
