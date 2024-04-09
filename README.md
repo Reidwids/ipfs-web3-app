@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IPFS Web3 App
+This application is a IPFS File sharing NextJS app that includes wallet integration and IPFS file storage. It uses Tailwind, Typescript, Wagmi, Viem, and WalletConnect.
 
-## Getting Started
+## Features
+This application includes the following features:
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  - Wallet Integration
+    - Support for connecting users wallet is handled with Web3Modal
+    - Show Eth Balance
+    - Signing of an arbitrary message
+  - Authentication & User Module
+    - Users can sign a nonce to create an account for the platform.
+    - Username and email can be added to account, but only the wallet address is necessary
+    - User session is used across the app to validate user when making requests for guarded data
+  - Database
+    - A postgres database is used with Prisma ORM to handle data storage
+    - 2 entities, User and File
+    - Files are many to one with users, so users can track their CIDs and file info in the app
+  - IPFS
+    - Initially I was going to use ipfs-js, but there are many warnings that it has been deprecated for helia
+    - Went ahead with helia and got it working - but seeing as this app is farely ephemeral / being updated / restarted a lot, consistent pinning was a challenge
+    - Ended up leveraging a starter account with Pinata to handle IPFS transactions. This way the pins are persisted.
+    - Offered encryption of files within application. Files are encrypted with a symmetric AES GCM key, but the AES key is derived from a signed nonce created by the user. This way, in order to decrypt the file, the user must sign the same nonce, which can then be used with the iv hash to re-derive the same AES key. The key then be used to decrypt the file.
+    - I included a file viewer so users can view a table of the files they have uploaded.
+    
+## Challenges
+- The crypto authentication took a little while to solve, as the NextAuth server side sessions are pretty abstracted and unique to Next. I was able to write a custom provider for authentication and use the metamask nonce signature approach as the session creation strategy.
+- Encrypting the file took some time as well, but that was mostly due to the fact that I really wanted to use a signed nonce as the seed for the decryption. I tried using the Lit protocol at first, but I didn't want to deal with using testnets and gas fees. I ended up just home rolling my own solution, that is technically symmetric, but does require the user to sign a nonce with their keys to encrypt / decrypt the file - so let call it semi-asymmetric.
