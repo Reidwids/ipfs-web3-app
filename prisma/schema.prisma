@@ -26,14 +26,13 @@ model File {
 }
 
 model User {
-  id               String    @id @default(uuid())
-  publicAddress    String    @unique
-  nonce            String?
-  nonceExpiry      DateTime?
-  email            String?   @unique
-  username         String?
-  preferredNetwork String?
-  files            File[]
+  id            String    @id @default(uuid())
+  publicAddress String    @unique
+  nonce         String?
+  nonceExpiry   DateTime?
+  email         String?   @unique
+  username      String?
+  files         File[]
 
   @@schema("ipfs")
 }

@@ -19,7 +19,6 @@ CREATE TABLE "ipfs"."User" (
     "nonceExpiry" TIMESTAMP(3),
     "email" TEXT,
     "username" TEXT,
-    "preferredNetwork" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

@@ -34,6 +34,5 @@ export async function authorizeCrypto(
   });
   return {
     id: user.id,
-    publicAddress: user.publicAddress,
   };
 }
