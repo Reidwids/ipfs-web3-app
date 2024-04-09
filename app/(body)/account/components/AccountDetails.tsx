@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import SignInButton from "./SignInButton";
 
@@ -113,8 +113,18 @@ export default function AccountDetails() {
                 <div className="flex flex-col w-full space-y-3">
                   <div className="flex justify-between w-full">
                     <div className="flex">
-                      <p>Username: </p>
-                      <p className="ml-2">{formData.username}</p>
+                      <p>Username:&nbsp;</p>
+                      <AnimatePresence>
+                        {formData.username && (
+                          <motion.p
+                            initial={{ opacity: 0, x: 5 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            {formData.username}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                     <motion.img
                       src={"/img/edit.svg"}
@@ -127,8 +137,18 @@ export default function AccountDetails() {
                   </div>
                   <div className="flex justify-between w-full">
                     <div className="flex">
-                      <p>Email: </p>
-                      <p className="ml-2">{formData.email}</p>
+                      <p>Email:&nbsp;</p>
+                      <AnimatePresence>
+                        {formData.username && (
+                          <motion.p
+                            initial={{ opacity: 0, x: 5 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            {formData.email}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </div>
