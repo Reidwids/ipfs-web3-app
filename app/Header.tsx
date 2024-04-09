@@ -19,8 +19,8 @@ export default function Header() {
       </Link>
       <div className="flex items-center space-x-8 ">
         <Link href="/">Home</Link>
-        <Link href="/ipfs">IPFS</Link>
         <Link href="/account">Account</Link>
+        <Link href="/ipfs">IPFS</Link>
         <div className="flex items-center space-x-4 ">
           <AnimatePresence>
             {address ? (

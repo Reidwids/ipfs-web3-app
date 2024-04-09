@@ -39,7 +39,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //TODO: Cookies only necessary if using server-side rendering
   const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en" className={`${inter.className} ${jura.variable}`}>

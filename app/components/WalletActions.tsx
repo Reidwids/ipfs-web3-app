@@ -5,7 +5,6 @@ import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { formatUnits } from "viem";
 import Loading from "@/app/components/Loading";
-import Image from "next/image";
 
 export default function WalletActions() {
   const { address } = useAccount();
@@ -93,11 +92,11 @@ export default function WalletActions() {
               type="text"
               name="message"
               placeholder="Sign a message"
-              className="w-80 px-2 py-2 rounded-md text-black"
+              className="w-80 px-2 py-2 rounded-md text-black border-white border-2"
             />
             <button
               type="submit"
-              className="px-2 py-2 bg-blue-500 rounded-md text-white text-lg font-semibold"
+              className="px-2 py-2 ml-1 bg-blue-500 rounded-md text-white text-lg font-semibold"
             >
               Submit
             </button>

@@ -13,8 +13,11 @@ export async function GET(request: Request) {
   if (!session) {
     return new NextResponse(null, { status: 401 });
   }
+
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: {
+      id: session.user.id,
+    },
   });
 
   if (!user) {
@@ -45,8 +48,4 @@ export async function PUT(request: Request) {
   });
 
   return new NextResponse(JSON.stringify(user), { status: 200 });
-}
-
-export async function DELETE(request: Request) {
-  // Delete User
 }
