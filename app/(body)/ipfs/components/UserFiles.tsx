@@ -90,7 +90,7 @@ export default function UserFiles() {
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.5 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-[-30px] -right-4 text-white p-1 rounded-md text-xs"
+                          className="absolute top-[-30px] -right-4 text-white p-1 rounded-md text-xs bg-neutral-800"
                         >
                           Copied!
                         </motion.div>
